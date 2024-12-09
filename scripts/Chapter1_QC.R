@@ -275,6 +275,11 @@ table(pbmc$passQC, pbmc$clusters)
 ?saveRDS
 saveRDS(pbmc, file="data/outputs/processed_pbmc_cds.RDS") #save for use on Monday
 
+# Alternatively, you can save as a monocle object.
+# Output will be a directory containing RDS files and indexed files                
+save_monocle_objects(pbmc, "data/outputs/processed_pbmc_cds")                
+        
+
 
 ################################################################################
 ###### Why are there are no rules or gold standards? ###########################
