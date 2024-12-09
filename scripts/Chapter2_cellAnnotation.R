@@ -26,6 +26,9 @@ library(garnett)
 # load the cds object you generated on Friday
 pbmc <- readRDS("data/outputs/processed_pbmc_cds.RDS")
 
+#### if saved as a mononcle object:
+# pbcm <- load_monocle_objects(""data/outputs/processed_pbmc_cds")
+
 # Remind yourself what it looked like
 plot_cells(pbmc) #built-in monocle UMAP plotting
 
