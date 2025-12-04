@@ -1,6 +1,6 @@
 # Chapter 3. Batch effects
 # Mary B. O'Neill & Anh Vo, BBI BAT-Lab, Single Cell Genomics
-# CSHL Computational Genomics Course 2024
+# CSHL Computational Genomics Course 2025
 # This code is adapted from our Seattle Area Single-Cell (SASC) workshop
 
 ################################################################################

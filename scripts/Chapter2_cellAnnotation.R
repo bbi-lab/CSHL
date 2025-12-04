@@ -1,6 +1,6 @@
 # Chapter 2. The bottleneck of cell annotation.
 # Mary B. O'Neill & Anh Vo, BBI BAT-Lab, Single Cell Genomics
-# CSHL Computational Genomics Course 2024
+# CSHL Computational Genomics Course 2025
 
 ################################################################################
 ###### Setup ###################################################################
@@ -24,10 +24,7 @@ library(garnett)
 ###### Let's start with the PBMC dataset you processed on Friday ###############
 ################################################################################
 # load the cds object you generated on Friday
-pbmc <- readRDS("data/outputs/processed_pbmc_cds.RDS")
-
-#### if saved as a mononcle object:
-# pbcm <- load_monocle_objects(""data/outputs/processed_pbmc_cds")
+pbmc <- load_monocle_objects("data/outputs/processed_pbmc_cds")
 
 # Remind yourself what it looked like
 plot_cells(pbmc) #built-in monocle UMAP plotting
@@ -199,17 +196,20 @@ ggplot(data.frame(colData(pbmc)), aes(x=UMAP1, y=UMAP2, color=clusters)) +
 pbmc <- cluster_cells(pbmc, k = 10)
 plot_cells(pbmc) # We see separation between presumed CD4 and CD8 T-cells!
 pbmc$clusters_k10 <- clusters(pbmc) #save this in colData for easier access
+plot_cells(pbmc, color_cells_by = "clusters_k10")
 
 # But what about classical vs non-classical monocytes? Based on the cananonical
 # marker genes expression levels it seemed they resolved as well.
 pbmc <- cluster_cells(pbmc, k = 5)
 plot_cells(pbmc)
 pbmc$clusters_k5 <- clusters(pbmc) #save this in colData for easier access
+plot_cells(pbmc, color_cells_by = "clusters_k5")
 
 # We can also use a different clustering method
 pbmc <- cluster_cells(pbmc, cluster_method = "louvain")
 plot_cells(pbmc)
 pbmc$louvain_clusters <- clusters(pbmc) #save this in colData for easier access
+plot_cells(pbmc, color_cells_by = "louvain_clusters")
 
 # Where do you stop? Truth is, this is often an interative process requiring lots
 # of exploration and domain-specific knowledge. Don't get attached to your first 
@@ -241,7 +241,7 @@ garnPlot
 # The resolution between CD4 and CD8 T cells does not seem to work as well in this
 # particular case. Hopefully this demonstrates the value of trying multiple 
 # methods and references. 
-# This afternoon we will work with a dataset for which the Garnett classifier 
+# In the next session we will work with a dataset for which the Garnett classifier 
 # worked exceedingly well on.
 
 ################################################################################
@@ -360,7 +360,7 @@ cds_combined <- combine_cds(list(cds_ref, cds_qry),  keep_all_genes=TRUE, cell_n
 plot_cells(cds_combined, color_cells_by='data_set')
 
 ?transfer_cell_labels
-cds_qry <- transfer_cell_labels(cds_qry, reduction_method='UMAP', ref_coldata=colData(cds_ref), ref_column_name='major_trajectory', query_column_name='cell_type_xfr', transform_models_dir='cds_ref_test_models')
+cds_qry <- transfer_cell_labels(cds_qry, reduction_method='UMAP', ref_coldata=colData(cds_ref), ref_column_name='major_trajectory', query_column_name='cell_type_xfr') 
 table(is.na(cds_qry$cell_type_xfr))
 
 ?fix_missing_cell_labels

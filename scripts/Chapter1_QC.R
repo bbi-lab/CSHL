@@ -1,7 +1,7 @@
 # Chapter 1. Basic scRNA-seq workflow in Monocle3, some ggplot, and why you must 
 # explore your data! 
 # Mary B. O'Neill & Anh Vo, BBI BAT-Lab, Single Cell Genomics
-# CSHL Computational Genomics Course 2024
+# CSHL Computational Genomics Course 2025
 
 ################################################################################
 ###### Setup ###################################################################
@@ -272,14 +272,8 @@ table(pbmc$passQC, pbmc$clusters)
 # both are valid options.
 
 # Save!
-?saveRDS
-saveRDS(pbmc, file="data/outputs/processed_pbmc_cds.RDS") #save for use on Monday
-
-# Alternatively, you can save as a monocle object.
-# Output will be a directory containing RDS files and indexed files                
-# save_monocle_objects(pbmc, "data/outputs/processed_pbmc_cds")                
-        
-
+?save_monocle_objects
+save_monocle_objects(pbmc, "data/outputs/processed_pbmc_cds") #save for next class
 
 ################################################################################
 ###### Why are there are no rules or gold standards? ###########################
