@@ -16,6 +16,8 @@
 
 # -------------------- Seurat -> cell_data_set --------------------------------
 
+data <- readRDS("data/inputs/Seurat_data_example.rds")
+
 # Cell_data_set is the format used in monocle3
 
 ## 1. Count matrix ----
@@ -74,6 +76,11 @@ cds@clusters[["UMAP"]] <- list(cluster_result = list(),
                                clusters       = cluster_ids)
 
 
+# Let's check that everything worked with a plot
+plot_cells(cds,
+           group_label_size = 5)
+
+
 ## Standard monocle pipeline ----
 
 # Alternatively, once you have built the cell_data_set object, you can run the 
@@ -110,6 +117,10 @@ plot_cells(cds, color_cells_by = "pseudotime")
 
 
 # ----------------------- cell_data_set -> Seurat -----------------------------
+
+# Using the processed dataset we created in the first tutorial
+cds <-  load_monocle_objects("data/outputs/processed_pbmc_cds")
+
 
 ## 1. Count matrix ----
 
@@ -158,6 +169,11 @@ seurat$pseudotime         <- pseudotime(cds)
 # Optional: use the Monocle clusters as the active identities
 Idents(seurat) <- "monocle_clusters"
 
+# Checking everything worked with a plot
+
+DimPlot(seurat, label = TRUE)
+
+
 ## Standard Seurat pipeline ----
 
 # Alternatively, once you have built the Seurat object, you can run the 
@@ -170,4 +186,5 @@ seurat <- RunPCA(seurat, npcs = 50)
 seurat <- FindNeighbors(seurat, dims = 1:50)
 seurat <- FindClusters(seurat, resolution = 0.1)
 seurat <- RunUMAP(seurat, dims = 1:50, reduction = "pca")
+
 
